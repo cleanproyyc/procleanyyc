@@ -178,12 +178,17 @@
     <p style="margin-top:0;color:#fff;">Two cleaners by default. Rate: <strong>$40/hour per cleaner</strong>.</p>
     
     <!-- Поля ввода -->
-    <div class="calc-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="calc-grid" style="
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:16px;">
+      
       <div>
         <label for="size" style="display:block;margin-bottom:6px;color:#6ed46e;">Home size (ft²)</label>
         <input id="size" type="number" min="200" step="50" placeholder="e.g. 1000" 
                style="width:100%;padding:10px;border-radius:8px;border:1px solid #6ed46e;background:#022d1e;color:#fff;">
       </div>
+      
       <div>
         <label for="condition" style="display:block;margin-bottom:6px;color:#6ed46e;">Condition</label>
         <select id="condition" 
@@ -193,6 +198,7 @@
           <option value="1.3">Needs extra attention</option>
         </select>
       </div>
+      
       <div>
         <label for="beds" style="display:block;margin-bottom:6px;color:#6ed46e;">Bedrooms</label>
         <select id="beds" 
@@ -205,6 +211,7 @@
           <option value="5">5+</option>
         </select>
       </div>
+      
       <div>
         <label for="baths" style="display:block;margin-bottom:6px;color:#6ed46e;">Bathrooms</label>
         <select id="baths" 
@@ -248,11 +255,11 @@
     const ratePerCleaner = 40;
     const cleaners = 2;
 
-    // Базовое правило: 500 ft² ≈ 1.33 ч для команды
+    // Базовое правило: 500 ft² ≈ 1.33 ч (для команды из 2 клинеров)
     function estimateHours(ft2){
       if(!ft2 || ft2 <= 0) return 0;
       const teamHours = 1.33 * (ft2 / 500);
-      return teamHours * cleaners; // пересчёт в "часы одного клинера"
+      return teamHours * cleaners; // в пересчёте на часы одного клинера
     }
 
     function bedroomBathAdj(beds, baths){
