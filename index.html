@@ -2,164 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ProClean Service YYC</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #022d1e;
-      color: #fff;
-    }
-    header {
-      text-align: center;
-      padding: 30px 20px;
-      background: #014422;
-    }
-    header img {
-      max-width: 180px;
-    }
-    h1, h2 {
-      color: #6ed46e;
-      margin-bottom: 15px;
-    }
-    .services, .about, .testimonials, .contact {
-      padding: 50px 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
-    .service-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      gap: 20px;
-    }
-    .service {
-      background: #033d24;
-      padding: 20px;
-      border-radius: 10px;
-      flex: 1 1 220px;
-      text-align: center;
-    }
-    .service span {
-      font-size: 40px;
-      display: block;
-      margin-bottom: 10px;
-    }
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 20px;
-      justify-content: center;
-    }
-    .gallery img {
-      max-width: 340px;
-      border-radius: 8px;
-      border: 2px solid #6ed46e;
-    }
-    .testimonial {
-      background: #044d2d;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-    .contact-info {
-      text-align: center;
-      margin-top: 20px;
-      line-height: 1.6;
-    }
-    a.button {
-      display: inline-block;
-      background: #6ed46e;
-      color: #022d1e;
-      padding: 12px 25px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    a.button:hover {
-      background: #4eba4e;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #014422;
-      font-size: 14px;
-    }
-    /* Responsive */
-    @media(max-width: 768px){
-      .service-list { flex-direction: column; }
-      .gallery img { max-width: 100%; }
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <img src="images/logo.jpeg" alt="ProClean Service Logo">
-    <h1>ProClean Service YYC</h1>
-    <p>Reliable, eco-friendly cleaning in Calgary</p>
-  </header>
-
-  <section class="services">
-    <h2>🧹 Our Services</h2>
-    <div class="service-list">
-      <div class="service">
-        <span>🧹</span>
-        <h3>Regular Cleaning</h3>
-      </div>
-      <div class="service">
-        <span>🧼</span>
-        <h3>Deep Cleaning</h3>
-      </div>
-      <div class="service">
-        <span>🚚</span>
-        <h3>Move-in / Move-out</h3>
-      </div>
-      <div class="service">
-        <span>🏡</span>
-        <h3>Airbnb & Post-construction</h3>
-      </div>
-    </div>
-    <p style="margin-top:20px; font-size:18px; text-align:center;">
-      💰 Rates: <strong>$40/hour per cleaner</strong><br>
-      (2-person team = fast & efficient)<br>
-      💚 Eco-friendly products | ✅ Trusted cleaners | ⭐ Spotless results guaranteed
-    </p>
-    <p style="text-align:center; margin-top:30px;">
-      <a href="https://forms.gle/bWPt7QdKAMNSBdo79" target="_blank" class="button">Book Now</a>
-    </p>
-  </section>
-
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
   <title>ProClean Service YYC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
+      font-family: Arial, sans-serif;
       background: #f9f9f9;
     }
     header {
       background: #4CAF50;
       color: white;
-      padding: 20px;
       text-align: center;
+      padding: 40px 20px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+    header p {
+      margin: 10px 0 0;
+      font-size: 18px;
     }
     section {
       padding: 40px 20px;
-      max-width: 900px;
-      margin: auto;
-    }
-    h1, h2 {
       text-align: center;
+    }
+    h2 {
       color: #4CAF50;
+      margin-bottom: 20px;
+    }
+    .services-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .service {
+      background: white;
+      border: 2px solid #4CAF50;
+      border-radius: 10px;
+      padding: 20px;
+      width: 180px;
+      font-weight: bold;
+    }
+    .btn {
+      display: inline-block;
+      background: #4CAF50;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      font-size: 16px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #45a049;
+    }
+    footer {
+      background: #4CAF50;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
     }
     /* --- Стили калькулятора --- */
     .calculator {
@@ -174,6 +80,7 @@
       display: block;
       margin-top: 12px;
       font-weight: bold;
+      text-align: left;
     }
     .calculator input, 
     .calculator select, 
@@ -203,6 +110,7 @@
       font-size: 16px;
       font-weight: bold;
       color: #222;
+      text-align: center;
     }
     .calculator .book-btn {
       display: none;
@@ -221,52 +129,63 @@
 <body>
   <header>
     <h1>ProClean Service YYC</h1>
-    <p>Premium Cleaning Services in Calgary</p>
+    <p>Reliable, eco-friendly cleaning in Calgary</p>
   </header>
 
-  <section>
-    <h2>Our Services</h2>
-    <p>Здесь можно оставить описание твоих услуг, фото и т.д.</p>
-  </section>
+  <section id="services">
+    <h2>🧹 Our Services</h2>
 
-  <!-- 🔹 ВСТРОЕННЫЙ КАЛЬКУЛЯТОР -->
-  <section>
-    <div class="calculator">
-      <h2>Cleaning Cost Calculator</h2>
-
-      <label>House size:
-        <input type="number" id="area" placeholder="Enter size">
-      </label>
-
-      <label>Units:
-        <select id="unit">
-          <option value="ft">ft²</option>
-          <option value="m">m²</option>
-        </select>
-      </label>
-
-      <label>Cleaning type:
-        <select id="type">
-          <option value="Regular">Regular</option>
-          <option value="Deep">Deep</option>
-          <option value="Move-out">Move-out</option>
-        </select>
-      </label>
-
-      <button onclick="calc()">Calculate</button>
-
-      <div id="result"></div>
-
-      <a id="bookBtn" class="book-btn" href="https://forms.gle/bWPt7QdKAMNSBdo79" target="_blank">📅 Book Cleaning</a>
+    <div class="services-container">
+      <div class="service">Regular Cleaning</div>
+      <div class="service">Deep Cleaning</div>
+      <div class="service">Move-in / Move-out</div>
+      <div class="service">Airbnb & Post-construction</div>
     </div>
-  </section>
-  <!-- 🔹 КОНЕЦ КАЛЬКУЛЯТОРА -->
 
-  <section>
-    <h2>Contact Us</h2>
-    <p>Email: procleanserviceyyc@gmail.com<br>
-       Phone: +1 (403) XXX-XXXX</p>
+    <p>💰 Rates: $40/hour per cleaner<br>
+       🌱 Eco-friendly products ✅ Trusted cleaners ✨ Spotless results guaranteed
+    </p>
+
+    <!-- 🔹 START: Cleaning Calculator -->
+    <section>
+      <div class="calculator">
+        <h2>Cleaning Cost Calculator</h2>
+
+        <label>House size:
+          <input type="number" id="area" placeholder="Enter size">
+        </label>
+
+        <label>Units:
+          <select id="unit">
+            <option value="ft">ft²</option>
+            <option value="m">m²</option>
+          </select>
+        </label>
+
+        <label>Cleaning type:
+          <select id="type">
+            <option value="Regular">Regular</option>
+            <option value="Deep">Deep</option>
+            <option value="Move-out">Move-out</option>
+          </select>
+        </label>
+
+        <button onclick="calc()">Calculate</button>
+
+        <div id="result"></div>
+
+        <a id="bookBtn" class="book-btn" href="https://forms.gle/bWPt7QdKAMNSBdo79" target="_blank">📅 Book Cleaning</a>
+      </div>
+    </section>
+    <!-- 🔹 END: Cleaning Calculator -->
+
+    <a href="https://forms.gle/bWPt7QdKAMNSBdo79" class="btn">Book Now</a>
   </section>
+
+  <footer>
+    <p>Premium Cleaning Services in Calgary<br>
+       © 2025 ProClean Service YYC</p>
+  </footer>
 
   <script>
     function calc() {
@@ -285,7 +204,8 @@
         area = area * 10.764;
       }
 
-      let norm = { "Regular":1.0, "Deep":1.5, "Move-out":2.0 };
+      // новая норма: 500 ft² = 1.5 часа
+      let norm = { "Regular":1.5, "Deep":2.25, "Move-out":3.0 };
       let hours = (area / 500) * norm[type] / cleaners;
       let cost = hours * cleaners * 40;
 
@@ -295,58 +215,5 @@
       document.getElementById('bookBtn').style.display = "block";
     }
   </script>
-</body>
-</html>
-  
-  <section class="about">
-    <h2>✨ Before & After</h2>
-    <div class="gallery">
-      <img src="images/beforeafter1.jpeg" alt="Before and After Cleaning 1">
-      <img src="images/beforeafter2.jpeg" alt="Before and After Cleaning 2">
-      <img src="images/beforeafter3.jpeg" alt="Before and After Cleaning 3">
-      <img src="images/beforeafter4.jpeg" alt="Before and After Cleaning 4">
-      <img src="images/beforeafter5.jpeg" alt="Before and After Cleaning 5">
-      <img src="images/beforeafter6.jpeg" alt="Before and After Cleaning 6">
-      <img src="images/beforeafter7.jpeg" alt="Before and After Cleaning 7">
-      <img src="images/beforeafter8.jpeg" alt="Before and After Cleaning 8">
-      <img src="images/beforeafter9.jpeg" alt="Before and After Cleaning 9">
-    </div>
-  </section>
-
-  <section class="testimonials">
-    <h2>💬 Customer Reviews</h2>
-
-    <!-- Текстовые отзывы -->
-    <div class="testimonial">
-      <p>“Thank you so much Anastasia and Irene! You two did an amazing job for me. I can finally relax on Sunday. I will be calling you for monthly cleaning.”</p>
-    </div>
-    <div class="testimonial">
-      <p>“We Love ProClean Service! Care and effort was put in, and it was truly SPOTLESS. Saved me so much time!”</p>
-    </div>
-    <div class="testimonial">
-      <p>“Sent, thank you, they did a great job 😊”</p>
-    </div>
-
-    <!-- Фото-отзывы -->
-    <h3 style="color:#6ed46e; margin-top:30px;">📸 Screenshots from our clients</h3>
-    <div class="gallery">
-      <img src="images/review1.jpg" alt="Customer Review 1">
-      <img src="images/review2.jpg" alt="Customer Review 2">
-      <img src="images/review3.jpg" alt="Customer Review 3">
-    </div>
-  </section>
-
-  <section class="contact">
-    <h2>📞 Contact Us</h2>
-    <div class="contact-info">
-      <p>📱 Phone: <a href="tel:4034644789" style="color:#6ed46e;">403 464 4789</a></p>
-      <p>📧 Email: <a href="mailto:cleanproyyc@gmail.com" style="color:#6ed46e;">cleanproyyc@gmail.com</a></p>
-    </div>
-  </section>
-
-  <footer>
-    © 2025 ProClean Service YYC | Eco-Friendly Cleaning in Calgary
-  </footer>
-
 </body>
 </html>
