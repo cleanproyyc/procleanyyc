@@ -176,7 +176,9 @@
   <h2>🧮 Cleaning Time & Price Calculator</h2>
   <div class="calc-card" style="background:#033d24;padding:20px;border-radius:10px;">
     <p style="margin-top:0;color:#fff;">Two cleaners by default. Rate: <strong>$40/hour per cleaner</strong>.</p>
-    <div class="calc-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;">
+    
+    <!-- Поля ввода -->
+    <div class="calc-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
       <div>
         <label for="size" style="display:block;margin-bottom:6px;color:#6ed46e;">Home size (ft²)</label>
         <input id="size" type="number" min="200" step="50" placeholder="e.g. 1000" 
@@ -216,19 +218,21 @@
       </div>
     </div>
 
+    <!-- Доп. опции -->
     <div style="margin-top:14px;">
       <span style="display:block;margin-bottom:8px;color:#6ed46e;">Extras (optional)</span>
       <label style="display:inline-flex;align-items:center;margin-right:16px;gap:8px;">
-        <input type="checkbox" class="extra" data-hours="0.5"> Oven
+        <input type="checkbox" class="extra" data-hours="0.33"> Oven
       </label>
       <label style="display:inline-flex;align-items:center;margin-right:16px;gap:8px;">
-        <input type="checkbox" class="extra" data-hours="0.5"> Fridge
+        <input type="checkbox" class="extra" data-hours="0.33"> Fridge
       </label>
       <label style="display:inline-flex;align-items:center;margin-right:16px;gap:8px;">
-        <input type="checkbox" class="extra" data-hours="1.0"> Inside windows (up to 8)
+        <input type="checkbox" class="extra" data-hours="0.33"> Inside windows (up to 8)
       </label>
     </div>
 
+    <!-- Кнопка -->
     <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
       <button id="calcBtn" class="button">Calculate</button>
       <div id="result" style="margin-left:10px;color:#fff;font-weight:bold;"></div>
@@ -238,21 +242,25 @@
   </div>
 </section>
 
+<!-- JS логика -->
 <script>
   document.addEventListener("DOMContentLoaded", function(){
     const ratePerCleaner = 40;
     const cleaners = 2;
 
+    // Базовое правило: 500 ft² ≈ 1.33 ч для команды
     function estimateHours(ft2){
       if(!ft2 || ft2 <= 0) return 0;
-      const teamHours = 1.5 * (ft2 / 500); // base rule
-      return teamHours * cleaners;         // convert to solo hours
+      const teamHours = 1.33 * (ft2 / 500);
+      return teamHours * cleaners; // пересчёт в "часы одного клинера"
     }
+
     function bedroomBathAdj(beds, baths){
       const bedAdj = Math.max(0, beds) * 0.25;
       const bathAdj = Math.max(0, baths - 1) * 0.5;
       return bedAdj + bathAdj;
     }
+
     function sumExtras(){
       let h = 0;
       document.querySelectorAll('#calculator .extra:checked').forEach(cb => {
@@ -260,20 +268,25 @@
       });
       return h;
     }
+
     function formatMoney(n){
       return new Intl.NumberFormat('en-CA', {style:'currency', currency:'CAD'}).format(n);
     }
+
     function go(){
       const size = parseFloat(document.getElementById('size').value || '0');
       const cond = parseFloat(document.getElementById('condition').value || '1');
       const beds = parseFloat(document.getElementById('beds').value || '0');
       const baths = parseFloat(document.getElementById('baths').value || '1');
+      
       let soloHours = estimateHours(size);
       soloHours *= cond;
       soloHours += bedroomBathAdj(beds, baths);
       soloHours += sumExtras();
+
       const teamHours = soloHours / cleaners;
       const total = teamHours * ratePerCleaner * cleaners;
+
       const result = document.getElementById('result');
       if(!size){
         result.textContent = ' Enter home size to see an estimate.';
@@ -290,8 +303,15 @@
     });
   });
 </script>
-<!-- ================= End Calculator ================= -->
 
+<!-- Адаптивность -->
+<style>
+  @media (max-width: 768px){
+    #calculator .calc-grid { grid-template-columns: 1fr; }
+  }
+</style>
+<!-- ================= End Calculator ================= -->
+  
   <section class="contact">
     <h2>📞 Contact Us</h2>
     <div class="contact-info">
