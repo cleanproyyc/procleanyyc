@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ProClean Service Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      max-width: 420px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 2px solid #4CAF50;
+      border-radius: 10px;
+      background-color: #fff;
+    }
+    h2 {
+      color: #4CAF50;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+    }
+    input, select, button, a {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      text-align: center;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 15px;
+      font-size: 15px;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #222;
+    }
+    .book-btn {
+      display: none;
+      background: #2196F3;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .book-btn:hover {
+      background: #0b7dda;
+    }
+  </style>
+</head>
+<body>
+  <h2>Cleaning Cost Calculator</h2>
+
+  <label>House size:
+    <input type="number" id="area" placeholder="Enter size">
+  </label>
+
+  <label>Units:
+    <select id="unit">
+      <option value="ft">ft²</option>
+      <option value="m">m²</option>
+    </select>
+  </label>
+
+  <label>Cleaning type:
+    <select id="type">
+      <option value="Regular">Regular</option>
+      <option value="Deep">Deep</option>
+      <option value="Move-out">Move-out</option>
+    </select>
+  </label>
+
+  <label>Number of cleaners:
+    <input type="number" id="cleaners" value="2" min="1">
+  </label>
+
+  <button onclick="calc()">Calculate</button>
+
+  <div id="result"></div>
+
+  <a id="bookBtn" class="book-btn" href="https://forms.gle/bWPt7QdKAMNSBdo79" target="_blank">📅 Book Cleaning</a>
+
+  <script>
+    function calc() {
+      let area = parseFloat(document.getElementById('area').value);
+      let unit = document.getElementById('unit').value;
+      let type = document.getElementById('type').value;
+      let cleaners = parseInt(document.getElementById('cleaners').value);
+
+      if (isNaN(area) || area <= 0 || cleaners <= 0) {
+        document.getElementById('result').innerHTML = "⚠️ Please enter valid values.";
+        document.getElementById('bookBtn').style.display = "none";
+        return;
+      }
+
+      if (unit === "m") {
+        area = area * 10.764;
+      }
+
+      let norm = { "Regular":1.0, "Deep":1.5, "Move-out":2.0 };
+      let hours = (area / 500) * norm[type] / cleaners;
+      let cost = hours * cleaners * 40;
+
+      document.getElementById('result').innerHTML =
+        "⏳ Time: " + hours.toFixed(1) + " hrs<br>💲 Cost: $" + cost.toFixed(2);
+
+      document.getElementById('bookBtn').style.display = "block";
+    }
+  </script>
+</body>
+</html>
