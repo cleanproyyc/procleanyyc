@@ -245,10 +245,10 @@
     const ratePerCleaner = 40;
     const cleaners = 2;
 
-    // 500 ft² ≈ 1.33 ч (1:20) на команду
+    // 500 ft² ≈ 1ч (1:00) на команду
     function estimateHours(ft2){
       if(!ft2 || ft2 <= 0) return 0;
-      const teamHours = 1.33 * (ft2 / 500);
+      const teamHours = 1 * (ft2 / 500);
       return teamHours * cleaners;
     }
 
