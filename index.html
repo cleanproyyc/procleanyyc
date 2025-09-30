@@ -171,153 +171,195 @@
     </div>
   </section>
 
-  <!-- ================= Calculator ================= -->
-<section id="calculator" class="calculator" style="padding:50px 20px;max-width:1100px;margin:auto;">
-  <h2>🧮 Cleaning Time & Price Calculator</h2>
-  <div class="calc-card" style="background:#033d24;padding:20px;border-radius:10px;">
-    <p style="margin-top:0;color:#fff;">Two cleaners by default. Rate: <strong>$40/hour per cleaner</strong>.</p>
-    
-    <!-- Поля ввода -->
-    <div class="calc-grid" style="
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:16px;">
-      
-      <div>
-        <label for="size" style="display:block;margin-bottom:6px;color:#6ed46e;">Home size (ft²)</label>
-        <input id="size" type="number" min="200" step="50" placeholder="e.g. 1000" 
-               style="width:100%;padding:10px;border-radius:8px;border:1px solid #6ed46e;background:#022d1e;color:#fff;">
-      </div>
-      
-      <div>
-        <label for="condition" style="display:block;margin-bottom:6px;color:#6ed46e;">Condition</label>
-        <select id="condition" 
-                style="width:100%;padding:10px;border-radius:8px;border:1px solid #6ed46e;background:#022d1e;color:#fff;">
-          <option value="1">Tidy</option>
-          <option value="1.15">Average</option>
-          <option value="1.3">Needs extra attention</option>
-        </select>
-      </div>
-      
-      <div>
-        <label for="beds" style="display:block;margin-bottom:6px;color:#6ed46e;">Bedrooms</label>
-        <select id="beds" 
-                style="width:100%;padding:10px;border-radius:8px;border:1px solid #6ed46e;background:#022d1e;color:#fff;">
-          <option value="0">Studio</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5+</option>
-        </select>
-      </div>
-      
-      <div>
-        <label for="baths" style="display:block;margin-bottom:6px;color:#6ed46e;">Bathrooms</label>
-        <select id="baths" 
-                style="width:100%;padding:10px;border-radius:8px;border:1px solid #6ed46e;background:#022d1e;color:#fff;">
-          <option value="1">1</option>
-          <option value="1.5">1.5</option>
-          <option value="2">2</option>
-          <option value="2.5">2.5</option>
-          <option value="3">3+</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- Доп. опции -->
-    <div style="margin-top:14px;">
-      <span style="display:block;margin-bottom:8px;color:#6ed46e;">Extras (optional)</span>
-      <label style="display:inline-flex;align-items:center;margin-right:16px;gap:8px;">
-        <input type="checkbox" class="extra" data-hours="0.33"> Oven
-      </label>
-      <label style="display:inline-flex;align-items:center;margin-right:16px;gap:8px;">
-        <input type="checkbox" class="extra" data-hours="0.33"> Fridge
-      </label>
-      <label style="display:inline-flex;align-items:center;margin-right:16px;gap:8px;">
-        <input type="checkbox" class="extra" data-hours="0.33"> Inside windows (up to 8)
-      </label>
-    </div>
-
-    <!-- Кнопка -->
-    <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
-      <button id="calcBtn" class="button">Calculate</button>
-      <div id="result" style="margin-left:10px;color:#fff;font-weight:bold;"></div>
-    </div>
-
-    <p style="opacity:0.9;margin-top:14px;color:#fff;">Estimates are for guidance. Final quote may vary after walk-through.</p>
-  </div>
-</section>
-
-<!-- JS логика -->
-<script>
-  document.addEventListener("DOMContentLoaded", function(){
-    const ratePerCleaner = 40;
-    const cleaners = 2;
-
-    // Базовое правило: 500 ft² ≈ 1.33 ч (для команды из 2 клинеров)
-    function estimateHours(ft2){
-      if(!ft2 || ft2 <= 0) return 0;
-      const teamHours = 1.33 * (ft2 / 500);
-      return teamHours * cleaners; // в пересчёте на часы одного клинера
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cleaning Time & Price Calculator</title>
+  <style>
+    body {
+      background-color: #022d1e;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
     }
-
-    function bedroomBathAdj(beds, baths){
-      const bedAdj = Math.max(0, beds) * 0.25;
-      const bathAdj = Math.max(0, baths - 1) * 0.5;
-      return bedAdj + bathAdj;
+    h2 {
+      color: #6ed46e;
     }
-
-    function sumExtras(){
-      let h = 0;
-      document.querySelectorAll('#calculator .extra:checked').forEach(cb => {
-        h += parseFloat(cb.getAttribute('data-hours') || '0');
-      });
-      return h;
+    .calc-card {
+      background: #033d24;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 800px;
+      margin: auto;
     }
-
-    function formatMoney(n){
-      return new Intl.NumberFormat('en-CA', {style:'currency', currency:'CAD'}).format(n);
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
-
-    function go(){
-      const size = parseFloat(document.getElementById('size').value || '0');
-      const cond = parseFloat(document.getElementById('condition').value || '1');
-      const beds = parseFloat(document.getElementById('beds').value || '0');
-      const baths = parseFloat(document.getElementById('baths').value || '1');
-      
-      let soloHours = estimateHours(size);
-      soloHours *= cond;
-      soloHours += bedroomBathAdj(beds, baths);
-      soloHours += sumExtras();
-
-      const teamHours = soloHours / cleaners;
-      const total = teamHours * ratePerCleaner * cleaners;
-
-      const result = document.getElementById('result');
-      if(!size){
-        result.textContent = ' Enter home size to see an estimate.';
-        return;
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #6ed46e;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #6ed46e;
+      background: #022d1e;
+      color: #fff;
+    }
+    button {
+      background: #6ed46e;
+      color: #022d1e;
+      padding: 12px 25px;
+      border-radius: 6px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #4eba4e;
+    }
+    #result {
+      margin-left: 10px;
+      color: #fff;
+      font-weight: bold;
+    }
+    @media (max-width: 768px){
+      .calc-grid {
+        grid-template-columns: 1fr;
       }
-      result.innerHTML =
-        'Estimated time: ' + teamHours.toFixed(1) + ' hrs (2 cleaners) | ' +
-        'Estimated total: ' + formatMoney(total);
     }
+  </style>
+</head>
+<body>
 
-    document.getElementById('calcBtn').addEventListener('click', function(e){
-      e.preventDefault();
-      go();
+  <section id="calculator" class="calculator">
+    <h2>🧮 Cleaning Time & Price Calculator</h2>
+    <div class="calc-card">
+      <p>Two cleaners by default. Rate: <strong>$40/hour per cleaner</strong>.</p>
+      
+      <div class="calc-grid">
+        <div>
+          <label for="size">Home size (ft²)</label>
+          <input id="size" type="number" min="200" step="50" placeholder="e.g. 1000">
+        </div>
+        <div>
+          <label for="condition">Condition</label>
+          <select id="condition">
+            <option value="1">Tidy</option>
+            <option value="1.15">Average</option>
+            <option value="1.3">Needs extra attention</option>
+          </select>
+        </div>
+        <div>
+          <label for="beds">Bedrooms</label>
+          <select id="beds">
+            <option value="0">Studio</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5+</option>
+          </select>
+        </div>
+        <div>
+          <label for="baths">Bathrooms</label>
+          <select id="baths">
+            <option value="1">1</option>
+            <option value="1.5">1.5</option>
+            <option value="2">2</option>
+            <option value="2.5">2.5</option>
+            <option value="3">3+</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;">
+        <span style="display:block;margin-bottom:8px;color:#6ed46e;">Extras (optional)</span>
+        <label><input type="checkbox" class="extra" data-hours="0.33"> Oven</label>
+        <label><input type="checkbox" class="extra" data-hours="0.33"> Fridge</label>
+        <label><input type="checkbox" class="extra" data-hours="0.33"> Inside windows (up to 8)</label>
+      </div>
+
+      <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
+        <button id="calcBtn">Calculate</button>
+        <div id="result"></div>
+      </div>
+
+      <p style="opacity:0.9;margin-top:14px;">Estimates are for guidance. Final quote may vary after walk-through.</p>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      const ratePerCleaner = 40;
+      const cleaners = 2;
+
+      // Базовое правило: 500 ft² ≈ 1.33 ч (1:20) на команду
+      function estimateHours(ft2){
+        if(!ft2 || ft2 <= 0) return 0;
+        const teamHours = 1.33 * (ft2 / 500);
+        return teamHours * cleaners; // в "часы одного клинера"
+      }
+
+      function bedroomBathAdj(beds, baths){
+        const bedAdj = Math.max(0, beds) * 0.25;
+        const bathAdj = Math.max(0, baths - 1) * 0.5;
+        return bedAdj + bathAdj;
+      }
+
+      function sumExtras(){
+        let h = 0;
+        document.querySelectorAll('#calculator .extra:checked').forEach(cb => {
+          h += parseFloat(cb.getAttribute('data-hours') || '0');
+        });
+        return h;
+      }
+
+      function formatMoney(n){
+        return new Intl.NumberFormat('en-CA', {style:'currency', currency:'CAD'}).format(n);
+      }
+
+      function go(){
+        const size = parseFloat(document.getElementById('size').value || '0');
+        const cond = parseFloat(document.getElementById('condition').value || '1');
+        const beds = parseFloat(document.getElementById('beds').value || '0');
+        const baths = parseFloat(document.getElementById('baths').value || '1');
+        
+        let soloHours = estimateHours(size);
+        soloHours *= cond;
+        soloHours += bedroomBathAdj(beds, baths);
+        soloHours += sumExtras();
+
+        const teamHours = soloHours / cleaners;
+        const total = teamHours * ratePerCleaner * cleaners;
+
+        const result = document.getElementById('result');
+        if(!size){
+          result.textContent = ' Enter home size to see an estimate.';
+          return;
+        }
+        result.innerHTML =
+          'Estimated time: ' + teamHours.toFixed(1) + ' hrs (2 cleaners) | ' +
+          'Estimated total: ' + formatMoney(total);
+      }
+
+      document.getElementById('calcBtn').addEventListener('click', function(e){
+        e.preventDefault();
+        go();
+      });
     });
-  });
-</script>
+  </script>
 
-<!-- Адаптивность -->
-<style>
-  @media (max-width: 768px){
-    #calculator .calc-grid { grid-template-columns: 1fr; }
-  }
-</style>
-<!-- ================= End Calculator ================= -->
+</body>
+</html>
   
   <section class="contact">
     <h2>📞 Contact Us</h2>
